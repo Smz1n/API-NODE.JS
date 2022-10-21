@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Endereço</h1>
+
+    <form action="">
+        <label for="cep">CEP</label>
+        <input onblur="buscar()" id="cep" type="text"><br>
+        
+        <label for="logradouro">Logradouro</label>
+        <input id="logradouro" type="text"><br>
+
+        <label for="bairro">Bairro</label>
+        <input id="bairro" type="text"><br>
+
+        <label for="cidade">Cidade</label>
+        <input id="cidade" type="text"><br>
+
+        <button>Enviar</button>
+    </form>
+
+    <script>
+        function buscar() {
+            fetch('http://localhost:8000/buscar-endereco/'+cep.value, {
+                headers: {
+                    'authorization': 'cachorro'
+                }
+            })
+            .then(res => res.json())
+            .then(json => {
+                logradouro.value = json.logradouro;
+                bairro.value = json.bairro;
+                cidade.value = json.cidade;
+
+            });
+
+        }
+    </script>
+</body>
+</html>
